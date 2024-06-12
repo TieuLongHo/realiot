@@ -1,0 +1,42 @@
+stages:
+  - validate_and_combine
+  # - build_and_deploy
+
+before_script:
+  - git config --global user.email "realiot@tieu.com"
+  - git config --global user.name "CI-CD"
+  - git remote remove origin
+  - git remote add origin "http://oauth2:glpat-rghRvd5VpdnjSRxRZMz3@172.20.0.100/root/realiot.git"
+
+validate_and_combine:
+  stage: validate_and_combine
+  script:
+    - npm install ajv --registry="http://172.20.0.103:4873"
+    - node scripts/json-validator.js component
+    - node scripts/combine-jsons.js component
+    - node scripts/json-validator.js tutorial
+    - node scripts/combine-jsons.js tutorial
+    - git add .
+    - git commit -m "Add new Tutorial changes on development"
+    - git push origin HEAD:development -o ci.skip
+    - if git show-ref --quiet refs/heads/production; then git checkout production; else git checkout -b production; fi
+    - git merge origin/development
+    - git push origin HEAD:production
+  only:
+    - development
+# build_and_deploy:
+#   stage: build_and_deploy
+#   script:
+#     - git checkout production
+#     - npm install --registry="http://172.20.0.103:4873"
+#     - npm run build
+#     - git add -f build
+#     - git commit -m "Add build files"
+#     - if git show-ref --quiet refs/heads/build; then git checkout build; else git checkout --orphan build; fi
+#     - git rm -rf .
+#     - git checkout production -- build
+#     - git add build
+#     - git commit -m "Deploy build $(date +'%Y-%m-%d %H:%M:%S')"
+#     - git push origin HEAD:build
+#   only:
+#     - production

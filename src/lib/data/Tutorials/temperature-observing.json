@@ -1,0 +1,33 @@
+{
+    "id": "temperature-observing",
+    "title": "Temperature Observing",
+    "intro" : "In this project, you will read the Temperature from a sensor and display it on the screen.",
+    "difficulty": "easy",
+    "components":[
+        {
+            "name": "TMP36"
+        }
+    ],
+    "story": "You are a zookeeper and you need to monitor the temperature of the animals in the zoo. You have a temperature sensor that can help you with this task. You need to connect the sensor to the board and display the temperature on the screen.",
+    "user_input": {
+        "buttons": [
+        ],
+        "sliders": [
+        ],
+        "graphs": [
+            {
+           "label": "Temperature",
+           "topic": "temperature"
+            }
+        ],
+        "displays": [
+
+        ]
+
+    },
+    "solution": {
+        "explanation": "The temperature sensor.",
+        "code": "temperature-observing.cpp"
+
+    }
+}

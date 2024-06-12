@@ -1,0 +1,8 @@
+{
+	"/": [],
+	"/exercises": [],
+	"/exercises/[exerciseId]": [
+		"src/routes/exercises/[exerciseId]/+page.ts"
+	],
+	"/settings": []
+}
